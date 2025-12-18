@@ -454,7 +454,7 @@ def estimate_avar(
             i * (K + 1): (i + 1)* (K + 1)
         ] = W_i
 
-    avar = (
+    avar = clean((
         np.linalg.inv(
             S_hat - L_hat.T / N
         ) 
@@ -462,13 +462,8 @@ def estimate_avar(
         @ np.linalg.inv(
             S_hat - L_hat / N
         )
-    )
-
-    avar = np.clip(
-        avar, 
-        a_min = np.percentile(avar, 5),
-        a_max = np.percentile(avar, 95),
-    )
+    ))
+    avar 
     return avar
 
 def full_homogeneity_test(
@@ -495,12 +490,7 @@ def full_homogeneity_test(
     d_vec = eta_centered.reshape(p)
 
     avar_inv = np.linalg.inv(avar)
-
-    avar_inv = np.clip(
-        avar_inv, 
-        a_min = np.percentile(avar_inv, 5),
-        a_max = np.percentile(avar_inv, 95),
-    )
+    avar_inv = clean(avar_inv)
 
     W = T * d_vec.T @ avar_inv @ d_vec
     q = (N - 1) * (K + 1)
@@ -534,12 +524,7 @@ def intercept_homogeneity_test(
 
 
     avar_inv = np.linalg.inv(avar)
-
-    avar_inv = np.clip(
-        avar_inv, 
-        a_min = np.percentile(avar_inv, 5),
-        a_max = np.percentile(avar_inv, 95),
-    )
+    avar_inv = clean(avar_inv)
 
     V_alpha = avar_inv[np.ix_(idx, idx)]
 
@@ -573,12 +558,7 @@ def slope_homogeneity_test(
     slopes_vec = slopes_centered.reshape(N * K)
 
     avar_inv = np.linalg.inv(avar)
-
-    avar_inv = np.clip(
-        avar_inv, 
-        a_min = np.percentile(avar_inv, 5),
-        a_max = np.percentile(avar_inv, 95),
-    )
+    avar_inv = clean(avar_inv)
     idx = []
     for i in range(N):
         for j in range(K):
@@ -594,4 +574,11 @@ def slope_homogeneity_test(
     gamma_lambda = (W - q) / np.sqrt(2 * q)
 
     return gamma_lambda
+
+def clean(x: np.array) -> np.array:
+    return np.clip(
+        x,
+        a_min = np.percentile(x, 5),
+        a_max = np.percentile(x, 95),
+    )
 
