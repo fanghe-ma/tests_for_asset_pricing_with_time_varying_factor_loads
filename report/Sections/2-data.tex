@@ -1,0 +1,9 @@
+\section{Data}\label{section-data}
+
+\subsection{Original dataset}
+
+Galvao et al published an anonymized replication dataset with 12965 rows and 53 columns. From their description, this dataset is created from Fama-French's 49-US industry portfolios (daily) data, and Fama-French's 5 factor data, with Healthcare and Software industries removed due to data availability issues. Their replication data covers the period from July 1963 to December 2014.
+
+\subsection{Replication dataset}
+
+To extend the dataset, this project retrieved updated data from Kenneth French's data library. Since Galvao et al's dataset contained no indices or column names, Appendix 1 outlines the steps taken to align the original and replication dataset. The replication set contains 15,690 daily returns across 47 industry portfolios, 5 factors and the risk free rate. This yields 15,690 daily observations to estimate factor-loadings at quarterly frequency, and 206 quarterly observations for estimating factor risk premia.

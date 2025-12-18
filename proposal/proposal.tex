@@ -1,0 +1,39 @@
+\documentclass[10pt]{article}
+\usepackage{amsmath, amssymb, setspace, geometry}
+\geometry{margin=0.75in}
+\setstretch{1.15}
+
+\begin{document}
+
+% \begin{center}
+%     \Large\textbf{STAT 5200 Project Proposal} \\[6pt]
+%     \large\textbf{Tests of Asset Pricing with Time-Varying Factor Loads (Replication and Critique)}
+% \end{center}
+
+\section*{Problem / Research Question}
+I plan to replicate Tests of Asset Pricing with Time-Varying Factor Loads by Galvão, Montes-Rojas, and Olmo (2019), who develop new statistical tests for evaluating linear asset-pricing models when factor loadings vary over time. I came across this paper on the JAE website and was very curious about it because it claimed to reject traditional models such as the CAPM and the Fama--French three- and five-factor models---that is, they do not correctly explain the cross-section of expected returns when betas are time-varying. 
+
+% Their study proposes hypothesis tests for assessing whether risk premia are homogeneous across assets and whether intercepts are jointly zero, which I hope to replicate.
+
+\section*{Dataset}
+The replication data is available on the JAE website. The dataset is drawn from Kenneth French's data library and CRSP datasets. I plan on extending the dataset up to 2024 by accessing CRSP through WRDS' Python API.
+
+
+\section*{Approach}
+Following the paper, I will estimate regressions of the form $
+r_{i,t+1}^e = \alpha_i + \beta_{i,t}'\lambda_i + \nu_{i,t+1}$
+where $r_{i,t+1}^e$ denotes excess returns and $\beta_{i,t}$ are time-varying factor loadings. I will use ordinary least squares (OLS) to estimate asset-specific intercepts and risk prices, and then implement pooled or panel-based estimators to test for homogeneity across assets. I plan to compute sandwich standard errors to account for heteroskedasticity and cross-sectional dependence.
+
+The authors rely on large-sample theory for inference. I am thinking of applying bootstrap inference to approximate the sampling distribution of the test statistics under finite samples, as discussed in class when studying resampling methods.
+
+\section*{Extensions and Critique}
+Besides extending the dataset and trying out bootstrap inference, I had a few questions when reading the paper about their methodology and econometric assumptions:
+\begin{itemize}
+    \item Is the conditional expectation of returns on factors necessarily linear? Could a nonlinear or state-dependent relationship between returns and factors alter the conclusions?
+    \item The paper assumes $E[\nu_{i,t+1}|X_{it}] = 0$. Does this necessarily hold, especially if there are unobserved macro or liquidity factors that are not captured by the model?
+    \item The asymptotic properties are derived under large $N$, large $T$, and large $m$ (frequency of observations), but in practice $N = 47$, and $m$ is bounded by daily observations. Do the asymptotic approximations hold in such finite samples? This motivates the use of bootstrap inference as an alternative.
+    \item Is there omitted variable bias if the regression includes at most five factors, as in the Fama--French five-factor model? Important risk components might not be captured by these observable factors.
+    \item The realized betas are estimated with error, introducing measurement-error-type bias. If betas are estimated from returns that depend on factor realizations, could there be endogeneity or attenuation bias in the estimated $\lambda_i$?
+\end{itemize}
+
+\end{document}

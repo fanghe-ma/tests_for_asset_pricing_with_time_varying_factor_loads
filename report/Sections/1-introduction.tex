@@ -1,0 +1,23 @@
+\vspace{10cm}
+\newpage
+
+\section{Introduction}\label{section-intro}
+
+\subsection{Background}
+This project seeks to recreate parts of the analysis done in Tests of asset pricing with time-varying factor loads (Galvao et al, 2018). Galvao et al estimated factor risk premia using time-series regressions of excess returns against factor loadings. The authors proposed a Wald-like test statistic that is claimed to be adjusted for the presence of generated regressors in the time-series regression. Using this test statistic, the author tests for the correctness of asset pricing models by testing the joint hypothesis of a zero intercept and homogeneous factor risk premia across risky assets. 
+
+When applied to US-industry portfolios over the time period from 1963 to 2024, the paper found overwhelming evidence rejecting CAPM, Fama-French 3 factors and Fama-French 5 factors. 
+
+In this project, the same approach was taken with an extended dataset covering US-industry portfolios from 1963 to 2025. Overwhelming evidence was found against the null hypotheses of zero intercept and homogenous risk premia when tested separately and jointly. However, under MC simulations, this project was unable to verify the asymptotic level of the proposed tests, and the proposed tests seemed to reject the null too often. 
+
+\subsection{Original methodology}
+
+Using US-industry portfolio returns and Fama-French factor returns, Galvao et al's first stage involves estimating factor-loads. The factor loads are generated as the fitted values in a AR(1) regression of a time-series of realized covariances between asset and factor returns. 
+
+Following the estimation of factor loads, the second stage assumes the presence of some known number $R$ of unobservable common factors. Galvao et al estimate factor risk premia, unobservable factor returns, as well as loading on unobservable factors jointly by solving a constrained minimization problem. 
+
+Galvao et al then describes an asymptotic variance estimator for the estimated factor risk premia, and derives 3 test statistics to test for zero-intercept, homogenous risk premia, and the joint null hypothesis.
+
+\subsection{Replication methodology}
+
+In replicating this study, this project seeks to 1) extend dataset with data from 1963-2025; 2) implement estimation of time-varying factor loads and verify the implementation with intermediate data provided by Galvao et al; 3) implement Galvao et al's factor risk premia estimator via two different approaches, a penalty-based unconstrained optimization approach and Galvao et al's iterative convergence approach; 4) implement estimation of asymptotic variance of the above estimator 5) implement calculation of test statistics and verify asymptotic level and power and 6) conduct empirical homogeneity tests on the extended dataset.

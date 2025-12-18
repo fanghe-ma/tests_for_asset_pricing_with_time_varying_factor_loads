@@ -1,0 +1,253 @@
+\section{Models}\label{section-model}
+
+As a starting point, Galvao et al assumes asset pricing models of the form 
+\begin{align}
+    r_{i, t + 1}^e = \alpha_i + \beta_{it}^{\top} f_{t + 1} + \phi_{it}^{\top} h_{t + 1} + e_{i, t + 1}
+\end{align}
+where $r_{i, t + 1}^e$ is the excess return on asset $i$, $f_{t + 1} \in \mathbb{R}^K$ is a realized vector of known systematic risk factors, $h_{t + 1} \in \mathbb{R}^R$ is a realized vector of unknown factors. $\beta_{it} \in \mathbb{R}^K$ are the factor loadings on the known factors and $\phi_{it}$ are the loadings on the unknown factors, and $e_{i, t + 1}$ satisfies $\mathbb{E}\left[ e_{i, t + 1} | f_{t + 1}, h_{t + 1}\right] = 0$. 
+
+Using the notation that $\tilde{f}_{t + 1} = f_{t + 1} - \mathbb{E}\left[ f_{t + 1}\right], \tilde{h}_{t + 1} = h_{t + 1} - \mathbb{E}\left[ h_{t + 1}\right]$, $\tilde{g}_{ t+ 1} = (\tilde{f}_{t+ 1}^{\top}, \tilde{h}_{t + 1}^{\top})^{\top}, {\beta_i^{*}}^{\top} = \left( \beta_i^{\top}, \phi_i^{\top} \right) $, and let $\lambda_{i, t + 1} \in \mathbb{R}^K$  denote a vector of factor risk premia capturing the price of risk $f_{t + 1}$ for asset $i$, Galvao et al describes the time-series regression model 
+\begin{align}
+    r_{i, t + 1}^e &= \alpha_i + \beta_{it}^{\top} \lambda_{i} + v_{i, t + 1} \\
+    v_{i, t + 1}^e &= {\beta_{it}^*}^{\top} \tilde{g}_{it} + \epsilon_{i, t + 1}
+\end{align}
+
+\subsection{Estimating time-varying factor loadings}
+To estimate the panel data of $\lambda_{it}$, the Galvao et al first generates the necessary regressors $\beta_{it}$. Let $\triangle$ denote sampling frequency and $m = 1/ \triangle$ denote number of obsevations per period $t$, let intra-period returns from $t + h \triangle$ to $t + (h + 1) \triangle$ be $R_{t + (h+1) \triangle} = p_{t + (h + 1) \triangle} - p_{t + h\triangle}$, $h = 0, \hdots m - 1$, and let inter-period return be $R_{t + 1} = \sum\limits_{h = 0}^{m-1} R_{t + (h + 1) \triangle} $. For each time step, the author stacks $N$ risky asset returns and $K$ factor returns in a $( N + K)$ vector denoted $R_{t + 1} = (r_{1, t+1}^e, \hdots r_{N, t+1}^e, f_{1, t+1}, \hdots f_{K, t+1})$. The author denotes a realized covariance matrix as 
+\begin{align*}
+    \hat{\Omega}_{t + 1} = \sum\limits_{h = 0}^{m-1} R_{t + (h+1)\triangle} R_{t + (h + 1) \triangle}^{\top}
+\end{align*}
+More concretely, the realized convariance matrices form a $(N+K) \times (N+K) \times T$ time-series. 
+
+Under a series of assumptions about the stochastic process that generates prices, the authors propose the following autoregressive process for each element of the realized covariacne matrix. Using $\omega_{(i, j), t+ 1}$ to denote the entry corresponding to the $i$-th asset and $j$-th factor
+\begin{align}
+    \omega_{(i, j), t + 1} = \delta_{ij, 0} + \delta_{ij, 1} \omega_{(i, j), t} + v_{ij, t + 1}
+\end{align}
+
+The authors then show that a consistent estimator of the time series $\beta_{ij, t}$ is 
+\begin{align}
+    \hat{\beta}_{ij, t} = \hat{\delta}_{ij, 0} + \hat{\delta}_{ij, 1} \omega_{(i, j), t}
+\end{align}
+Where $\hat{\delta}_{ij, 0}, \hat{\delta}_{ij, 1}$ are the OLS estimates in Equation (4). 
+
+\subsection{Estimation of factor risk premia}
+The authors adopt the notation $\hat{X}_{it} = \left( 1, \beta_{it}^{\top} \right)^{\top} $ and $\eta_i = (\alpha_i, \lambda_i^{\top})^{\top}$, and fit the following model 
+\begin{align}
+    r_{i, t + 1}^e &=  \hat{X}_{it} \eta_{i} \\
+    r_{i, t + 1}^e &= {\beta_{it}^*}^{\top} \tilde{g}_{it} + \epsilon_{i, t + 1}
+\end{align}
+
+The authors propose that the estimators are 
+\begin{align}
+    \hat{\eta}_i, \hat{\beta}_i^*, \hat{\tilde{g}}_{t + 1} &= \arg \min_{\eta, \beta^*, \tilde{g}} l \left( \eta_i, \beta_i^*, \tilde{g}_{ t+ 1} \right)  \\
+    &= \arg \min_{\eta, \beta^*, \tilde{g}} \sum\limits_{i = 1}^{N}  \sum\limits_{i = 1}^{T}  \left( r_{i, t + 1}^e - \hat{X}_{it} \eta_i - {\beta_i^*}^{\top} \tilde{g}_{t + 1} \right)^2
+\end{align}
+Subject to $\frac{G^{\top}G}{N} = I, \frac{{\beta^*}^{\top} \beta^*}{N}$ diagonal, where $G = \left( \tilde{g}_1, \hdots \tilde{g}_T \right)^{\top} \in \mathbb{R}^{T \times R} $, $\beta^8 = \left( \beta_1^*, \hdots \beta_N^* \right)^{\top} \in \mathbb{R}^{N \times R} $. The authors argue that the solutions to this minimization problem should simultaneously solve 
+\begin{align}
+    &\hat{\eta}_i = \left( \hat{X}_i^{\top} M_{\hat{G}} \hat{X}_i \right)^{-1} \hat{X}_i^{\top} M_{\hat{G}} r_i^e \\
+    &\left[ \frac{1}{NT} \sum\limits_{i= 1}^{N} \left( r_i^e - \hat{X}_i \hat{\eta}_i \right) \left( r_i^e - \hat{X}_i \hat{\eta}_i \right)^{\top}    \right]  \hat{G} = \hat{G} \hat{V}_{NT}
+\end{align}
+Where $\hat{G}$ is the estimate of $G$ consisting of $\hat{\tilde{g}}$, $M_{\hat{G}} = I - \hat{G} \left( \hat{G}^{\top} \hat{G} \right)^{-1} \hat{G}^{\top}$, and $\hat{V}_{NT}$ is a diagonal matrix of the $R$ largest eigenvalues of $\hat{G}$. The authors propose solving this system by iterating Equation (10) and (11) until convergence. 
+
+As an extension to the original study and for ease of computation, this project proposes an alternative solution to the system by solving the following unconstrained minization for some fixed $\varphi$
+\begin{align}
+    \hat{\eta}_i, \hat{\beta}_i^*, \hat{\tilde{g}}_{t + 1} &= \arg \min_{\eta, \beta^*, \tilde{g}} \sum\limits_{i = 1}^{N}  \sum\limits_{i = 1}^{T}  \left( r_{i, t + 1}^e - \hat{X}_{it} \eta_i - {\beta_i^*}^{\top} \tilde{g}_{t + 1} \right)^2 - \varphi \lVert \frac{G^{\top} G}{T} - I \rVert_F^2
+\end{align}
+
+\subsection{Estimation of asymptotic variance}
+The author argues that a consistent estimator of the asymptotic variance of
+$\sqrt{T}\left(\hat{\eta} - \eta\right)$ is
+\begin{align}
+    \widehat{\mathrm{Avar}}\!\left(\sqrt{T}\left(\hat{\eta} - \eta\right)\right)
+    =
+    \left( \hat{S} - \frac{1}{N} \hat{L}^{\top} \right)^{-1}
+    \hat{W}
+    \left( \hat{S} - \frac{1}{N} \hat{L} \right)^{-1},
+\end{align}
+where:
+\begin{itemize}
+    \item $\hat{\eta} = (\hat{\eta}_1^\top, \ldots, \hat{\eta}_N^\top)^\top
+    \in \mathbb{R}^{N(K+1)}$ stacks the individual parameter vectors
+    $\hat{\eta}_i = (\hat{\alpha}_i, \hat{\lambda}_i^\top)^\top$.
+
+    $\hat{X}_i = (\hat{X}_{i1}, \ldots, \hat{X}_{iT})^\top$, where
+    $\hat{X}_{it} = (1, \hat{\beta}_{it}^\top)^\top$.
+    Let $M_{\hat{G}} = I_T - \hat{G} (\hat{G}^\top \hat{G})^{-1} \hat{G}^\top$
+    denote the projection matrix onto the orthogonal complement of the space
+    spanned by the estimated latent factors 
+    $\hat{G} = (\hat{\tilde{g}}_1, \ldots, \hat{\tilde{g}}_T)^\top \in \mathbb{R}^{T \times R}$.
+
+    \item $\hat{S}$ is an $N(K+1) \times N(K+1)$ block-diagonal matrix
+    with $i$-th diagonal block
+    \begin{align}
+        \hat{S}_{ii}
+        =
+        \frac{1}{T}\,\hat{X}_i^\top M_{\hat{G}} \hat{X}_i
+        \quad
+        \text{for } i = 1,\ldots,N.
+    \end{align}
+    Collecting these blocks gives
+    $\hat{S} = \mathrm{diag}(\hat{S}_{11}, \ldots, \hat{S}_{NN})$.
+
+    \item $\hat{L}$ is an $N(K+1)\times N(K+1)$ matrix with
+    $(i,j)$ block
+    \begin{align}
+        \hat{L}_{ij}
+        =
+        \hat{a}_{ij}\,
+        \frac{1}{T}\,\hat{X}_i^\top M_{\hat{G}} \hat{X}_j,
+        \qquad
+        \hat{a}_{ij}
+        =
+        (\hat{\beta}_i^*)^\top
+        \left( \frac{\hat{G}^\top \hat{G}}{N} \right)^{-1}
+        \hat{\beta}_j^*,
+    \end{align}
+    where
+    $\hat{\beta}^* = (\hat{\beta}_1^{*\,\top}, \ldots, \hat{\beta}_N^{*\,\top})^\top
+    \in \mathbb{R}^{N \times R}$ collects the loadings on the latent factors.
+
+    \item $\hat{W}$ is an $N(K+1)\times N(K+1)$ block-diagonal matrix
+    $\hat{W} = \mathrm{diag}(\hat{W}_1,\ldots,\hat{W}_N)$.
+    For each asset $i$,
+    \begin{align}
+        \hat{W}_i
+        &=
+        \left(
+            \hat{\lambda}_i \odot \frac{M_{\hat{G}}\hat{X}_i}{T}
+        \right)^{\!\top}
+        T^{-1} \mathrm{diag}\!\big( \hat{H}_i^\top \hat{H}_i \big)
+        \left(
+            \hat{\lambda}_i \odot \frac{M_{\hat{G}}\hat{X}_i}{T}
+        \right)
+        +
+        \left(
+            \frac{1}{T}\,\hat{X}_i^\top M_{\hat{G}}\hat{X}_i
+        \right)\hat{\sigma}^2.
+    \end{align}
+    Here $\hat{\lambda}_i \in \mathbb{R}^K$ is the vector of estimated factor
+    risk premia for asset $i$, and 
+    $\odot$ denotes the element-wise product between
+    $\hat{\lambda}_i$ and the $K$ slope columns of
+    $M_{\hat{G}}\hat{X}_i / T$.
+
+    \item $\hat{H}_i$ is a $T \times K$ matrix 
+    \begin{align}
+        \hat{Z}_{ij} 
+        &= 
+        \big( 1,\, \hat{\omega}_{ij} \big)
+        \in \mathbb{R}^{T \times 2},
+        \\
+        \hat{d}_{ij}
+        &=
+        \left( \frac{1}{T}\hat{Z}_{ij}^\top \hat{Z}_{ij} \right)^{-1}
+        \left( \frac{1}{\sqrt{T}} \hat{Z}_{ij}^\top \hat{v}_{ij} \right),
+        \\
+        \hat{h}_{ij} 
+        &= 
+        \hat{Z}_{ij} \hat{d}_{ij}
+        \in \mathbb{R}^{T},
+    \end{align}
+    and then set $\hat{H}_i = (\hat{h}_{i1},\ldots,\hat{h}_{iK})$.
+
+    \item $\hat{\sigma}^2$ is the sample variance of the pricing error
+    $\hat{\epsilon}_{i,t+1}$, obtained from the regression
+    \[
+    \hat{\sigma^2} = \frac{
+        \sum\limits_{t = 1}^{T}  \sum\limits_{i = 1}^{N}  \left( r_{i, t + 1}^e - \hat{X}_{it}\hat{\eta}_i - \beta_i^{* \top} \hat{\tilde{g}}_[t + 1] \right)^2
+    }{NT - N(K +1) - (N+T)R}
+    \]
+    appropriate degrees of freedom.
+\end{itemize}
+
+
+\subsection{Test statistics}
+
+Using the asymptotic variance estimator, Galvão et al.\ propose the following
+Wald-type test statistics for assessing the homogeneity of intercepts and 
+slope parameters across assets.
+
+Let $\hat{\eta}_i = (\hat{\alpha}_i, \hat{\lambda}_i^\top)^\top$, $\hat{\eta}_\cdot = \frac{1}{N}\sum_{i=1}^N \hat{\eta}_i$, $\tilde{\eta} = (\hat{\eta}_1 - \hat{\eta}_\cdot,\;\ldots,\;\hat{\eta}_N - \hat{\eta}_\cdot)\in \mathbb{R}^{N(K+1)}$, and $\widehat{V}^{-1}=\widehat{\mathrm{Avar}}\!\left( \sqrt{T}(\hat{\eta} - \eta) \right)^{-1}$ denote the inverse of the asymptotic variance estimator defined previously.
+
+\subsubsection*{Joint intercept and slope homogeneity}
+
+To test the joint null hypothesis  
+\[
+    H_0^{\alpha,\lambda} : 
+    \quad \alpha_1 = \cdots = \alpha_N = 0, 
+    \qquad 
+    \lambda_1 = \cdots = \lambda_N,
+\]
+the proposed statistic is
+\begin{align}
+    \hat{\Gamma}_{\alpha,\lambda}
+    =
+    \frac{
+        T \, \tilde{\eta}^{\top}
+        \widehat{V}^{-1}
+        \tilde{\eta}
+        \;-\;
+        \big[(N - 1)K + N\big]
+    }{
+        \sqrt{\,2\big[(N - 1)K + N\big]\,}
+    },
+    \tag{33}
+\end{align}
+which satisfies $\hat{\Gamma}_{\alpha,\lambda} \xrightarrow{d} N(0,1)$ under 
+$H_0^{\alpha,\lambda}$.
+
+\subsubsection*{Intercept homogeneity}
+
+For the null hypothesis  
+\[
+    H_0^{\alpha} : \quad \alpha_1 = \cdots = \alpha_N = 0,
+\]
+let $\tilde{\alpha}$ denote the subvector of $\tilde{\eta}$ containing only the
+intercept parameters, and let $\widehat{V}_{\alpha}^{-1}$ be the corresponding 
+submatrix of $\widehat{V}^{-1}$.  
+The test statistic is
+\begin{align}
+    \hat{\Gamma}_{\alpha}
+    =
+    \frac{
+        T \, \tilde{\alpha}^{\top}
+        \widehat{V}_{\alpha}^{-1}
+        \tilde{\alpha}
+        \;-\;
+        N
+    }{
+        \sqrt{\,2N\,}
+    },
+    \tag{34}
+\end{align}
+which is asymptotically standard normal under $H_0^{\alpha}$.
+
+\subsubsection*{Slope homogeneity}
+
+For the null of slope homogeneity,
+\[
+    H_0^{\lambda} : \quad \lambda_1 = \cdots = \lambda_N,
+\]
+let $\tilde{\lambda}$ be the slope subvector of $\tilde{\eta}$ and let 
+$\widehat{V}_{\lambda}^{-1}$ denote the corresponding submatrix of 
+$\widehat{V}^{-1}$.  
+The Wald statistic is
+\begin{align}
+    \hat{\Gamma}_{\lambda}
+    =
+    \frac{
+        T \, \tilde{\lambda}^{\top}
+        \widehat{V}_{\lambda}^{-1}
+        \tilde{\lambda}
+        \;-\;
+        (N - 1)K
+    }{
+        \sqrt{\,2(N - 1)K\,}
+    },
+    \tag{35}
+\end{align}
+which satisfies $\hat{\Gamma}_{\lambda} \xrightarrow{d} N(0,1)$ under $H_0^{\lambda}$.
+
+
+
+

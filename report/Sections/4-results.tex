@@ -1,0 +1,162 @@
+\section{Results}\label{section-results}
+
+\subsection{Estimating factor loading}
+
+Appendix 2 contains the replication code for estimating factor loadings based on OLS estimates of the AR(1) equations as per Equation (5). Comparing our beta estimates against intermediate data provided by Galvao et al, we verify our replication implementation.
+
+\subsection{Solving for factor risk premia}
+We compare the two ways of estimating factor risk premia, with $\hat{\eta}_{pen}$ denoting the unconstrained penalty-based version and $\hat{\eta}_{iter}$ denoting the iterative approach discussed by Galvao et al. 
+Appendix 3 shows that when applied to the empirical dataset, both approaches converge to the same objective value. 
+
+We also conduct MC simulations and find that both methods of computing the estimator yields similar RMSE, and that the estimators generally converge to the same value.
+\begin{table}[ht]
+\centering
+\caption{Monte Carlo Results: Difference Between Estimators}
+\label{tab:mc_eta_difference}
+\begin{tabular}{lrr}
+\toprule
+{} & Mean & Std \\
+\midrule
+$\lVert \hat{\eta}_{\text{pen}} - \hat{\eta}_{\text{iter}} \rVert$ 
+    & 0.135 & 0.063 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[ht]
+\centering
+\caption{Monte Carlo Results: RMSE of Estimators Relative to True $\eta$}
+\label{tab:mc_eta_rmse}
+\begin{tabular}{lrr}
+\toprule
+{} & $\hat{\eta}_{\text{pen}}$ & $\hat{\eta}_{\text{iter}}$ \\
+\midrule
+RMSE & 0.215 & 0.233 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Empirical results}
+\begin{table}
+\caption{Joint Homogeneity Test ($\Gamma_{\alpha,\lambda}$) with p-values}
+\label{tab:gamma_a_lam_with_p}
+\begin{tabular}{llrrrrrrrrr}
+% \toprule
+%  & K & \multicolumn{3}{r}{1} & \multicolumn{3}{r}{3} & \multicolumn{3}{r}{5} \\
+%  & R & 1 & 2 & 5 & 1 & 2 & 5 & 1 & 2 & 5 \\
+% Period & Type &  &  &  &  &  &  &  &  &  \\
+% \midrule
+\toprule
+& & \multicolumn{3}{c}{{K=1}} 
+    & \multicolumn{3}{c}{{K=3}} 
+    & \multicolumn{3}{c}{{K=5}} \\
+\cmidrule(lr){3-5} \cmidrule(lr){6-8} \cmidrule(lr){9-11}
+Period & Type 
+    & {R=1} & {R=2} & {R=5}
+    & {R=1} & {R=2} & {R=5}
+    & {R=1} & {R=2} & {R = 5}\\
+\midrule
+\multirow[t]{2}{*}{1963–1983} & $\gamma$ & -18.91 & -10.40 & 95.16 & 14.38 & -4.72 & 10.36 & -9.16 & 10.67 & 16.21 \\
+ & $p$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+\cline{1-11}
+\multirow[t]{2}{*}{1963–2025} & $\gamma$ & 44.21 & -2.39 & 2441.88 & -8.88 & -5.89 & 35.92 & -21.84 & -6.51 & -5.66 \\
+ & $p$ & 0.00 & 0.02 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+\cline{1-11}
+\multirow[t]{2}{*}{1973–1993} & $\gamma$ & 33.95 & -26.77 & 104.74 & -11.07 & -8.51 & -7.71 & -9.83 & -8.75 & 31.60 \\
+ & $p$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+\cline{1-11}
+\multirow[t]{2}{*}{1983–2003} & $\gamma$ & -30.28 & -69.18 & -156.72 & 1.94 & 46.65 & 622.59 & -16.47 & -6.37 & 0.81 \\
+ & $p$ & 0.00 & 0.00 & 0.00 & 0.05 & 0.00 & 0.00 & 0.00 & 0.00 & 0.41 \\
+\cline{1-11}
+\multirow[t]{2}{*}{1993–2013} & $\gamma$ & -11.29 & -62.27 & 55907.88 & 2.89 & -4.10 & 51.99 & -3.23 & -3.99 & 246.17 \\
+ & $p$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+\cline{1-11}
+\multirow[t]{2}{*}{2003–2023} & $\gamma$ & 19.99 & -4.49 & 5177.39 & 2.69 & 9.91 & 302.64 & 19.38 & 15.21 & 41.83 \\
+ & $p$ & 0.00 & 0.00 & 0.00 & 0.01 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+\cline{1-11}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}
+\caption{Intercept Homogeneity Test ($\Gamma_{\alpha}$) with p-values}
+\label{tab:gamma_a}
+\begin{tabular}{llrrrrrrrrr}
+% \toprule
+%  & K & \multicolumn{3}{r}{1} & \multicolumn{3}{r}{3} & \multicolumn{3}{r}{5} \\
+%  & R & 1 & 2 & 5 & 1 & 2 & 5 & 1 & 2 & 5 \\
+% Period & Type &  &  &  &  &  &  &  &  &  \\
+% \midrule
+\toprule
+& & \multicolumn{3}{c}{{K=1}} 
+    & \multicolumn{3}{c}{{K=3}} 
+    & \multicolumn{3}{c}{{K=5}} \\
+\cmidrule(lr){3-5} \cmidrule(lr){6-8} \cmidrule(lr){9-11}
+Period & Type 
+    & {R=1} & {R=2} & {R=5}
+    & {R=1} & {R=2} & {R=5}
+    & {R=1} & {R=2} & {R = 5}\\
+\midrule
+\multirow[t]{2}{*}{1963–1983} & $\Gamma$ & -5.29 & -5.02 & -0.80 & -8.45 & -8.32 & -8.30 & -10.73 & -10.73 & -10.43 \\
+ & $p$ & 0.00 & 0.00 & 0.42 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+\cline{1-11}
+\multirow[t]{2}{*}{1963–2025} & $\Gamma$ & -4.71 & -5.37 & -4.46 & -8.35 & -8.33 & -8.30 & -10.68 & -10.72 & -10.71 \\
+ & $p$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+\cline{1-11}
+\multirow[t]{2}{*}{1973–1993} & $\Gamma$ & -4.78 & -4.86 & -4.40 & -8.31 & -8.31 & -8.30 & -10.72 & -10.72 & -10.72 \\
+ & $p$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+\cline{1-11}
+\multirow[t]{2}{*}{1983–2003} & $\Gamma$ & -4.87 & -4.29 & 0.58 & -8.29 & -7.79 & -1.22 & -10.71 & -10.72 & -10.48 \\
+ & $p$ & 0.00 & 0.00 & 0.56 & 0.00 & 0.00 & 0.22 & 0.00 & 0.00 & 0.00 \\
+\cline{1-11}
+\multirow[t]{2}{*}{1993–2013} & $\Gamma$ & -5.33 & -6.50 & -3.34 & -8.32 & -8.31 & -8.32 & -10.73 & -10.73 & -10.72 \\
+ & $p$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+\cline{1-11}
+\multirow[t]{2}{*}{2003–2023} & $\Gamma$ & -3.99 & -5.26 & -4.41 & -8.43 & -8.29 & -8.29 & -10.73 & -10.71 & -10.72 \\
+ & $p$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+\cline{1-11}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}
+\caption{Slope Homogeneity Test ($\Gamma_{\lambda}$) with p-values}
+\label{tab:gamma_lam}
+\begin{tabular}{llrrrrrrrrr}
+% \toprule
+%  & K & \multicolumn{3}{r}{1} & \multicolumn{3}{r}{3} & \multicolumn{3}{r}{5} \\
+%  & R & 1 & 2 & 5 & 1 & 2 & 5 & 1 & 2 & 5 \\
+% Period & Type &  &  &  &  &  &  &  &  &  \\
+% \midrule
+\toprule
+& & \multicolumn{3}{c}{{K=1}} 
+    & \multicolumn{3}{c}{{K=3}} 
+    & \multicolumn{3}{c}{{K=5}} \\
+\cmidrule(lr){3-5} \cmidrule(lr){6-8} \cmidrule(lr){9-11}
+Period & Type 
+    & {R=1} & {R=2} & {R=5}
+    & {R=1} & {R=2} & {R=5}
+    & {R=1} & {R=2} & {R = 5}\\
+\midrule
+\multirow[t]{2}{*}{1963–1983} & $\Gamma$ & -4.82 & -4.76 & -2.54 & -8.68 & -8.23 & -7.90 & -10.67 & -10.51 & -10.47 \\
+ & $p$ & 0.00 & 0.00 & 0.01 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+\cline{1-11}
+\multirow[t]{2}{*}{1963–2025} & $\Gamma$ & -4.79 & -4.80 & 9.89 & -8.32 & -8.30 & -8.11 & -10.64 & -10.68 & -10.67 \\
+ & $p$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+\cline{1-11}
+\multirow[t]{2}{*}{1973–1993} & $\Gamma$ & -4.79 & -4.80 & -4.10 & -8.30 & -8.29 & -8.28 & -10.70 & -10.68 & -10.13 \\
+ & $p$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+\cline{1-11}
+\multirow[t]{2}{*}{1983–2003} & $\Gamma$ & -4.80 & -5.42 & -2.94 & -8.21 & -7.23 & -7.91 & -10.77 & -10.65 & -10.43 \\
+ & $p$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+\cline{1-11}
+\multirow[t]{2}{*}{1993–2013} & $\Gamma$ & -4.74 & -5.26 & 992.96 & -8.15 & -8.19 & -7.52 & -10.61 & -10.61 & -7.19 \\
+ & $p$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+\cline{1-11}
+\multirow[t]{2}{*}{2003–2023} & $\Gamma$ & -4.33 & -4.76 & 121.80 & -8.04 & -8.08 & -3.58 & -10.29 & -10.45 & -10.00 \\
+ & $p$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+\cline{1-11}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Asymptotic level and power of proposed tests}
