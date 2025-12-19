@@ -8,7 +8,7 @@ This project seeks to recreate parts of the analysis done in Tests of asset pric
 
 When applied to US-industry portfolios over the time period from 1963 to 2024, the paper found overwhelming evidence rejecting CAPM, Fama-French 3 factors and Fama-French 5 factors. 
 
-In this project, the same approach was taken with an extended dataset covering US-industry portfolios from 1963 to 2025. Overwhelming evidence was found against the null hypotheses of zero intercept and homogenous risk premia when tested separately and jointly. However, under MC simulations, this project was unable to verify the asymptotic level of the proposed tests, and the proposed tests seemed to reject the null too often. 
+In this project, the same approach was taken with an extended dataset covering US-industry portfolios from 1963 to 2025. Overwhelming evidence was found against the null hypotheses of zero intercept and homogenous risk premia when tested separately and jointly. However, under MC simulations, this project was unable to verify the asymptotic level of the proposed tests, and the proposed tests seemed to reject the null too often. This project also makes an attempt at jackknife resampling to estimate standard error. This led to small improvements in Type I error rate but was nonetheless unsuccessful. The failure of jackknife resampling was likely because of the naive treatment of time-series panel data.
 
 \subsection{Original methodology}
 
@@ -20,4 +20,4 @@ Galvao et al then describes an asymptotic variance estimator for the estimated f
 
 \subsection{Replication methodology}
 
-In replicating this study, this project seeks to 1) extend dataset with data from 1963-2025; 2) implement estimation of time-varying factor loads and verify the implementation with intermediate data provided by Galvao et al; 3) implement Galvao et al's factor risk premia estimator via two different approaches, a penalty-based unconstrained optimization approach and Galvao et al's iterative convergence approach; 4) implement estimation of asymptotic variance of the above estimator 5) implement calculation of test statistics and verify asymptotic level and power and 6) conduct empirical homogeneity tests on the extended dataset.
+In replicating this study, this project seeks to 1) extend dataset with data from 1963-2025; 2) implement estimation of time-varying factor loads and verify the implementation with intermediate data provided by Galvao et al; 3) implement Galvao et al's factor risk premia estimator via two different approaches, a penalty-based unconstrained optimization approach and Galvao et al's iterative convergence approach; 4) implement estimation of asymptotic variance of the above estimator 5) implement calculation of test statistics and verify asymptotic level and power and 6) conduct empirical homogeneity tests on the extended dataset. 

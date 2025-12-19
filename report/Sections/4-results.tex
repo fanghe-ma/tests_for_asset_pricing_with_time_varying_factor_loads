@@ -36,6 +36,11 @@ RMSE & 0.215 & 0.233 \\
 \end{table}
 
 \subsection{Empirical results}
+
+Following Galvao et al, we compute the test statistic for $K \in \{ 1, 3, 5 \} $ corresponding to CAPM, Fama-French 3 factor and Fama-French 5 factor asset pricing models. We also let $R$ vary for $R \in \{ 1, 2, 5 \} $. We compute test statistics over 20 year periods as well as the full sample period. 
+
+Similar to Galvao et al, the test statistics present overwhelming evidence against the null hypotheses of a zero-intercept and homogenous slopes.
+
 \begin{table}
 \caption{Joint Homogeneity Test ($\Gamma_{\alpha,\lambda}$) with p-values}
 \label{tab:gamma_a_lam_with_p}
@@ -55,23 +60,23 @@ Period & Type
     & {R=1} & {R=2} & {R=5}
     & {R=1} & {R=2} & {R = 5}\\
 \midrule
-\multirow[t]{2}{*}{1963–1983} & $\gamma$ & -18.91 & -10.40 & 95.16 & 14.38 & -4.72 & 10.36 & -9.16 & 10.67 & 16.21 \\
+\multirow[t]{2}{*}{1963–1983} & $\gamma$ & -19.45 & 88.12 & -54.07 & -5.32 & -5.49 & 80.83 & -318.54 & -7.21 & 1.33 \\
+ & $p$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.18 \\
+\cline{1-11}
+\multirow[t]{2}{*}{1973–1993} & $\gamma$ & 38.51 & -42.37 & 54.92 & -10.30 & -8.93 & -8.79 & -10.78 & -11.08 & -7.92 \\
  & $p$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
 \cline{1-11}
-\multirow[t]{2}{*}{1963–2025} & $\gamma$ & 44.21 & -2.39 & 2441.88 & -8.88 & -5.89 & 35.92 & -21.84 & -6.51 & -5.66 \\
- & $p$ & 0.00 & 0.02 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+\multirow[t]{2}{*}{1983–2003} & $\gamma$ & -29.99 & -66.68 & -110.75 & -2.41 & 28.53 & 160.97 & -11.42 & -9.91 & 3.28 \\
+ & $p$ & 0.00 & 0.00 & 0.00 & 0.02 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
 \cline{1-11}
-\multirow[t]{2}{*}{1973–1993} & $\gamma$ & 33.95 & -26.77 & 104.74 & -11.07 & -8.51 & -7.71 & -9.83 & -8.75 & 31.60 \\
- & $p$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+\multirow[t]{2}{*}{1993–2013} & $\gamma$ & -11.01 & -52.80 & 23007.89 & -0.42 & -5.06 & 20.58 & -5.14 & -1.92 & 39.09 \\
+ & $p$ & 0.00 & 0.00 & 0.00 & 0.68 & 0.00 & 0.00 & 0.00 & 0.05 & 0.00 \\
 \cline{1-11}
-\multirow[t]{2}{*}{1983–2003} & $\gamma$ & -30.28 & -69.18 & -156.72 & 1.94 & 46.65 & 622.59 & -16.47 & -6.37 & 0.81 \\
- & $p$ & 0.00 & 0.00 & 0.00 & 0.05 & 0.00 & 0.00 & 0.00 & 0.00 & 0.41 \\
+\multirow[t]{2}{*}{2003–2023} & $\gamma$ & 24.69 & -4.79 & 2327.37 & -3.49 & 6.25 & 190.73 & 8.60 & 0.34 & 1.24 \\
+ & $p$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.74 & 0.21 \\
 \cline{1-11}
-\multirow[t]{2}{*}{1993–2013} & $\gamma$ & -11.29 & -62.27 & 55907.88 & 2.89 & -4.10 & 51.99 & -3.23 & -3.99 & 246.17 \\
- & $p$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
-\cline{1-11}
-\multirow[t]{2}{*}{2003–2023} & $\gamma$ & 19.99 & -4.49 & 5177.39 & 2.69 & 9.91 & 302.64 & 19.38 & 15.21 & 41.83 \\
- & $p$ & 0.00 & 0.00 & 0.00 & 0.01 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+\multirow[t]{2}{*}{1963–2025} & $\gamma$ & 44.02 & -2.67 & 2438.24 & -8.92 & -6.18 & 25.32 & -6.99 & -8.44 & -9.92 \\
+ & $p$ & 0.00 & 0.01 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
 \cline{1-11}
 \bottomrule
 \end{tabular}
@@ -96,22 +101,22 @@ Period & Type
     & {R=1} & {R=2} & {R=5}
     & {R=1} & {R=2} & {R = 5}\\
 \midrule
-\multirow[t]{2}{*}{1963–1983} & $\Gamma$ & -5.29 & -5.02 & -0.80 & -8.45 & -8.32 & -8.30 & -10.73 & -10.73 & -10.43 \\
- & $p$ & 0.00 & 0.00 & 0.42 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+\multirow[t]{2}{*}{1963–1983} & $\gamma$ & -5.29 & 0.49 & -2.33 & -8.28 & -8.32 & -8.14 & -10.74 & -10.73 & -10.59 \\
+ & $p$ & 0.00 & 0.63 & 0.02 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
 \cline{1-11}
-\multirow[t]{2}{*}{1963–2025} & $\Gamma$ & -4.71 & -5.37 & -4.46 & -8.35 & -8.33 & -8.30 & -10.68 & -10.72 & -10.71 \\
+\multirow[t]{2}{*}{1973–1993} & $\gamma$ & -4.78 & -4.86 & -4.62 & -8.31 & -8.31 & -8.31 & -10.72 & -10.72 & -10.72 \\
  & $p$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
 \cline{1-11}
-\multirow[t]{2}{*}{1973–1993} & $\Gamma$ & -4.78 & -4.86 & -4.40 & -8.31 & -8.31 & -8.30 & -10.72 & -10.72 & -10.72 \\
+\multirow[t]{2}{*}{1983–2003} & $\gamma$ & -4.86 & -4.30 & -0.64 & -8.30 & -7.92 & -5.57 & -10.72 & -10.72 & -10.56 \\
+ & $p$ & 0.00 & 0.00 & 0.52 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+\cline{1-11}
+\multirow[t]{2}{*}{1993–2013} & $\gamma$ & -5.29 & -6.25 & -4.42 & -8.32 & -8.31 & -8.31 & -10.73 & -10.72 & -10.72 \\
  & $p$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
 \cline{1-11}
-\multirow[t]{2}{*}{1983–2003} & $\Gamma$ & -4.87 & -4.29 & 0.58 & -8.29 & -7.79 & -1.22 & -10.71 & -10.72 & -10.48 \\
- & $p$ & 0.00 & 0.00 & 0.56 & 0.00 & 0.00 & 0.22 & 0.00 & 0.00 & 0.00 \\
-\cline{1-11}
-\multirow[t]{2}{*}{1993–2013} & $\Gamma$ & -5.33 & -6.50 & -3.34 & -8.32 & -8.31 & -8.32 & -10.73 & -10.73 & -10.72 \\
+\multirow[t]{2}{*}{2003–2023} & $\gamma$ & -3.75 & -5.20 & -4.63 & -8.41 & -8.30 & -8.28 & -10.72 & -10.72 & -10.72 \\
  & $p$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
 \cline{1-11}
-\multirow[t]{2}{*}{2003–2023} & $\Gamma$ & -3.99 & -5.26 & -4.41 & -8.43 & -8.29 & -8.29 & -10.73 & -10.71 & -10.72 \\
+\multirow[t]{2}{*}{1963–2025} & $\gamma$ & -4.70 & -5.34 & -4.41 & -8.34 & -8.33 & -8.30 & -10.73 & -10.72 & -10.71 \\
  & $p$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
 \cline{1-11}
 \bottomrule
@@ -137,26 +142,115 @@ Period & Type
     & {R=1} & {R=2} & {R=5}
     & {R=1} & {R=2} & {R = 5}\\
 \midrule
-\multirow[t]{2}{*}{1963–1983} & $\Gamma$ & -4.82 & -4.76 & -2.54 & -8.68 & -8.23 & -7.90 & -10.67 & -10.51 & -10.47 \\
- & $p$ & 0.00 & 0.00 & 0.01 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+\multirow[t]{2}{*}{1963–1983} & $\gamma$ & -4.82 & -2.31 & -2.93 & -8.28 & -8.23 & -5.36 & -14.80 & -10.68 & -10.59 \\
+ & $p$ & 0.00 & 0.02 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
 \cline{1-11}
-\multirow[t]{2}{*}{1963–2025} & $\Gamma$ & -4.79 & -4.80 & 9.89 & -8.32 & -8.30 & -8.11 & -10.64 & -10.68 & -10.67 \\
+\multirow[t]{2}{*}{1973–1993} & $\gamma$ & -4.79 & -4.80 & -4.38 & -8.30 & -8.30 & -8.29 & -10.71 & -10.71 & -10.67 \\
  & $p$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
 \cline{1-11}
-\multirow[t]{2}{*}{1973–1993} & $\Gamma$ & -4.79 & -4.80 & -4.10 & -8.30 & -8.29 & -8.28 & -10.70 & -10.68 & -10.13 \\
+\multirow[t]{2}{*}{1983–2003} & $\gamma$ & -4.80 & -5.39 & -3.27 & -8.32 & -7.48 & -8.02 & -10.71 & -10.70 & -10.59 \\
  & $p$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
 \cline{1-11}
-\multirow[t]{2}{*}{1983–2003} & $\Gamma$ & -4.80 & -5.42 & -2.94 & -8.21 & -7.23 & -7.91 & -10.77 & -10.65 & -10.43 \\
+\multirow[t]{2}{*}{1993–2013} & $\gamma$ & -4.74 & -5.06 & 405.04 & -8.19 & -8.21 & -7.91 & -10.63 & -10.46 & -10.03 \\
  & $p$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
 \cline{1-11}
-\multirow[t]{2}{*}{1993–2013} & $\Gamma$ & -4.74 & -5.26 & 992.96 & -8.15 & -8.19 & -7.52 & -10.61 & -10.61 & -7.19 \\
+\multirow[t]{2}{*}{2003–2023} & $\gamma$ & -4.30 & -4.77 & 52.71 & -8.19 & -8.12 & -5.35 & -10.44 & -10.58 & -10.54 \\
+ & $p$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+\multirow[t]{2}{*}{1963–2025} & $\gamma$ & -4.79 & -4.80 & 10.28 & -8.32 & -8.30 & -8.15 & -10.71 & -10.69 & -10.71 \\
  & $p$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
 \cline{1-11}
-\multirow[t]{2}{*}{2003–2023} & $\Gamma$ & -4.33 & -4.76 & 121.80 & -8.04 & -8.08 & -3.58 & -10.29 & -10.45 & -10.00 \\
- & $p$ & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
 \cline{1-11}
 \bottomrule
 \end{tabular}
 \end{table}
 
 \subsection{Asymptotic level and power of proposed tests}
+
+The test statistics appear very large in magnitude. While this tracks with Galvao et al's findings, this observation raises questions about the asymptotic distribution of the proposed test statistics. 
+
+Since the authors did not publish results of a MC study of the behavior of test statistics, we extend the analysis by simulating the null world to test for asymptotic levels of the proposed test. We also simulate the alternative hypothesis under different degrees of heterogeneity to test for asymptotic power. 
+
+The procedure taken for the MC study is presented in Appendix 6. As suspected, the asymptotic level of the proposed tests are $.996, .942$ and $.912$ respectively for $\hat{\Gamma}_{\alpha, \lambda}, \hat{\Gamma}_{\alpha}, \hat{\Gamma}_{\lambda}$ respectively. This aligns with our suspicion that all test statistics are large in magnitude, and the test rejects too often. 
+
+The distribution of test statistics under the null shows a general bell shape but with extreme outliers on both ends. The individual standardized parameter estimates of $\hat{\eta}$ again follows a bell shape but with much greater variability than standard normal. 
+
+Conducting a sanity check on the estimated values of asymptotic variance, we see that the estimated asymptotic variance contains values that are extremely small. Hence the inverse covariance matrix tends to blow up the Wald-type test statistic.
+
+\subsection{Jackknife-based approach}
+
+Although time-series analysis has not been covered in STAT5200 yet, I attempt a jackknife resampling to correct for the \textit{small} asymptotic variance that results in inflated test statistics.
+
+Let 
+\[
+\hat{\eta} = 
+\begin{pmatrix}
+\hat{\eta}_1^\top \\
+\vdots \\
+\hat{\eta}_N^\top
+\end{pmatrix}
+\in \mathbb{R}^{N(K+1)}, 
+\qquad 
+\hat{\eta}_i = 
+\begin{pmatrix}
+\hat{\alpha}_i \\
+\hat{\lambda}_i
+\end{pmatrix}
+\in \mathbb{R}^{K+1},
+\]
+denote the full-sample estimator obtained from the iterative procedure in Section 3, we consider a leave-one-period-out jackknife over time. For each $t = 1,\dots,T$, we drop period $t$ from the sample, re-estimate the model using the remaining $T-1$ periods, and obtain a jackknife replicate
+\[
+\hat{\eta}^{(-t)} 
+= 
+\begin{pmatrix}
+\hat{\eta}^{(-t)}_1{}^\top \\
+\vdots \\
+\hat{\eta}^{(-t)}_N{}^\top
+\end{pmatrix}
+\in \mathbb{R}^{N(K+1)}
+\]
+
+The jackknife mean of the parameter vector is $\bar{\theta}^{(\cdot)} = \frac{1}{T} \sum_{t=1}^T \hat{\theta}^{(-t)}$, where $ \theta$ denotes a flattened version of $\hat{ \eta}$, and the (leave-one-out) jackknife covariance estimator of $\hat{\theta}$ is
+\[
+\widehat{V}^{\mathrm{JK}}_{\eta} 
+= \frac{T-1}{T} 
+\sum_{t=1}^T 
+\big( \hat{\theta}^{(-t)} - \bar{\theta}^{(\cdot)} \big)
+\big( \hat{\theta}^{(-t)} - \bar{\theta}^{(\cdot)} \big)^{\top}
+\;\in\; \mathbb{R}^{p \times p}.
+\]
+
+Using this jackknife covariance matrix, we form a Wald-type statistic for the full homogeneity hypothesis,
+\[
+H_0^{(\alpha,\lambda)}:\quad 
+\alpha_1 = \cdots = \alpha_N, 
+\quad \lambda_1 = \cdots = \lambda_N.
+\]
+
+Let 
+\[
+\bar{\eta} 
+= \frac{1}{N} \sum_{i=1}^N \hat{\eta}_i
+\quad\text{and}\quad
+D =
+\begin{pmatrix}
+\hat{\eta}_1 - \bar{\eta} \\
+\vdots \\
+\hat{\eta}_N - \bar{\eta}
+\end{pmatrix},
+\qquad
+d = \mathrm{vec}(D) \in \mathbb{R}^p,
+\]
+so that $d$ collects the cross-sectional deviations of $(\hat{\alpha}_i,\hat{\lambda}_i)$ from their mean. The jackknife-based Wald statistic is then
+\[
+W^{\mathrm{JK}}_{\alpha,\lambda} 
+= d^{\top} \big(\widehat{V}^{\mathrm{JK}}_{\eta}\big)^{-1} d.
+\]
+\[
+\hat{\Gamma}^{\mathrm{JK}}_{\alpha,\lambda}
+= 
+\frac{ W^{\mathrm{JK}}_{\alpha,\lambda} - q_{\alpha,\lambda} }
+     { \sqrt{ 2 q_{\alpha,\lambda} } }, \qquad 
+q_{\alpha,\lambda} = (N-1)(K+1)
+\]
+
+However, this approach also seems to run into the problem of yielding inflated test statistics. Under a MC simulation, the Type I error rate of the joint hypothesis test, intercept test, and slopes test are $99.5\%, 10.5\%$, and $61\%$ respectively. Furthermore, I am unsure if it this approach to resampling makes economic sense under a time-series context. Observing the distribution of the test statistic under both $H_0$ and $H_1$ also shows extreme outliers. 

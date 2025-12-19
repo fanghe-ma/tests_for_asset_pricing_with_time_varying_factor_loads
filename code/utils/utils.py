@@ -418,9 +418,12 @@ def estimate_avar(
     # sigma2_hat
     eps_sum = 0
     for i in range(N):
-        for t in range(T):
-            pred = X[i,t] @ eta[i] + G[t] @ beta_star[i]
-            eps_sum += (r[i,t] - pred)**2
+        # for t in range(T):
+        #     pred = X[i,t] @ eta[i] + G[t] @ beta_star[i]
+        #     eps_sum += (r[i,t ] - pred)**2
+        for t in range(T-1):
+            pred = X[i,t] @ eta[i] + G[t + 1] @ beta_star[i]
+            eps_sum += (r[i,t + 1] - pred)**2
 
     df = N*T - N*Kp1 - (N+T)*R
     sigma2_hat = eps_sum / df
@@ -437,12 +440,13 @@ def estimate_avar(
 
         W_i = (Xi.T @ M_G @ Xi) * (1.0 / T) * sigma2_hat
 
-        lambda_i = eta[i][1:]
-        local_vec = lambda_i * (M_G @ Xi)[:, 1:] * (1.0 / T)
+        lambda_i = eta[i][1:]                   #(K + 1, )
+        local_vec = lambda_i * (M_G @ Xi)[:, 1:] * (1.0 / T) #(K + 1, ) ele-prod (T, K + 1)
 
         diag_HTH_over_T = np.diag(np.diag(
             H_i.T @ H_i
         )) * (1.0 / T)
+
 
         for j in range(K):
             weight = diag_HTH_over_T[j, j]
@@ -465,6 +469,148 @@ def estimate_avar(
     ))
     avar 
     return avar
+
+# =============================================================================================
+def estimate_avar_alt(
+    beta_hat: np.array,
+    excess_returns: np.array,
+    eta: np.array,
+    G: np.array,
+    beta_star: np.array,
+    realized_covariance: np.array,
+    residuals: np.array,
+    N: int,
+    K: int,
+    R: int, 
+    T: int,
+) -> np.array:
+    """
+    Estimates Avar matrix using equation (30)
+
+    Args:
+        beta_hat (np.array): estimated time-varying betas, N * K * T
+        excess_returns (np.array): excess returns, N * T
+        eta (np.array): estimated eta,  N * (1 + K)
+        G (np.array): estimated G matrix, T * R
+        beta_star (np.array): estimated beta^*, N * R
+        realized_covariance (np.array): realized covariance matrix, N * K * T
+        residuals (np.array): residuals from AR(1) regression, N * K * T
+        N (int): number of assets
+        K (int): number of observed factors
+        R (int): number of unobserved factors
+        T (int): number of time periods
+
+    Returns:
+        np.array: estimated asymptotic variance N(K + 1) * N(K + 1)
+    """
+
+    assert beta_hat.ndim == 3, f"beta_hat must be 3D, got {beta_hat.ndim}"
+    assert beta_hat.shape == (N, K, T), f"beta_hat.shape {beta_hat.shape} != ({N}, {K}, {T})"
+    assert excess_returns.ndim == 2, f"excess_returns must be 2D, got {excess_returns.ndim}"
+    assert excess_returns.shape == (N, T), f"excess_returns.shape {excess_returns.shape} != ({N}, {T})"
+    assert eta.ndim == 2, f"eta must be 2D, got {eta.ndim}"
+    assert eta.shape == (N, (1 + K)), f"eta.shape {eta.shape} != ({N}, {1 + K})"
+    assert G.ndim == 2, f"G must be 2D, got {G.ndim}"
+    assert G.shape == (T, R), f"G.shape {G.shape} != ({T}, {R})"
+    assert beta_star.ndim == 2, f"beta_star must be 2D, got {beta_star.ndim}"
+    assert beta_star.shape == (N, R), f"beta_star.shape {beta_star.shape} != ({N}, {R})"
+    assert realized_covariance.ndim == 3, f"realized_covariance must be 3D, got {realized_covariance.ndim}"
+    assert realized_covariance.shape == (N, K, T), f"realized_covariance.shape {realized_covariance.shape} != ({T}, {R})"
+    assert residuals.ndim == 3, f"residuals must be 3D, got {residuals.ndim}"
+    assert residuals.shape == (N, K, T), f"residuals.shape {residuals.shape} != ({T}, {R})"
+
+    beta_hat_t = beta_hat.transpose(0, 2, 1)           # (N, T, K)
+    ones = np.ones((N, T, 1))
+    X = np.concatenate([ones, beta_hat_t], axis=2)     # (N, T, K+1)
+    r = excess_returns                                 # (N, T)
+
+    # projection matrix G
+    I_T = np.eye(T)                                    # (T, T)
+    GtG = G.T @ G                                      # (R, R)
+    M_G = I_T - G @ np.linalg.inv(GtG) @ G.T           # (T, T)
+
+    # Build block diagonal S
+    Kp1 = K + 1
+    S_hat = np.zeros((N * Kp1, N * Kp1))                # (N(K+1), N(K+1))
+
+    for i in range(N):
+        Xi = X[i]                                       # (T, K+1)
+        Sii = Xi.T @ M_G @ Xi * (1.0/T)                       # (K+1, K+1)
+        r0 = i*Kp1
+        S_hat[r0:r0+Kp1, r0:r0+Kp1] = Sii
+
+    # Build L
+    L_hat = np.zeros((N * Kp1, N * Kp1))                # (N(K+1), N(K+1))
+    GtG_over_N_inv = np.linalg.inv(GtG / N)
+
+    for i in range(N):
+        Xi = X[i]
+        for j in range(N):
+            Xj = X[j]
+
+            a_ij = beta_star[i].T @ GtG_over_N_inv @ beta_star[j]
+            Lij = (Xi.T @ M_G @ Xj) * (a_ij/T)
+            r0 = i*Kp1
+            c0 = j*Kp1
+            L_hat[r0:r0+Kp1, c0:c0+Kp1] = Lij
+    
+    # sigma2_hat
+    eps_sum = 0
+    for i in range(N):
+        # for t in range(T):
+        #     pred = X[i,t] @ eta[i] + G[t] @ beta_star[i]
+        #     eps_sum += (r[i,t ] - pred)**2
+        for t in range(T-1):
+            pred = X[i,t] @ eta[i] + G[t + 1] @ beta_star[i]
+            eps_sum += (r[i,t + 1] - pred)**2
+
+    df = N*T - N*Kp1 - (N+T)*R
+    sigma2_hat = eps_sum / df
+
+    W = np.zeros((N * Kp1, N * Kp1))
+    for i in range(N):
+        H_i = np.zeros((T, K + 1))
+        for j in range(K):
+            Z_ij = np.column_stack([np.ones(T), realized_covariance[i, j, :]])
+            ZTZ_over_T = (Z_ij.T @ Z_ij) * (1.0/T)
+            v_ij = residuals[i, j, :]
+            h_ij = Z_ij @ np.linalg.inv(ZTZ_over_T) @ (Z_ij.T @ v_ij) / np.sqrt(T)
+            H_i[:, j + 1] = h_ij
+
+        # 1. Calculate the base covariance (Full Matrix) - You already have this
+        term2 = (Xi.T @ M_G @ Xi) * (1.0 / T) * sigma2_hat
+        print(f"term2.shape: {term2.shape}")
+
+        # 2. Calculate the correction (Full Matrix)
+        # Assuming 'local_vec' represents the term in the parentheses
+        # And 'diag_HTH_over_T' is the middle matrix D
+        # We calculate A.T @ D @ A
+
+        lambda_i = eta[i]                   #(K, )
+        local_vec = lambda_i * (M_G @ Xi) * (1.0 / T) #(K, ) ele-prod (T, K + 1)
+        diag_HTH_over_T = np.diag(np.diag(
+            H_i.T @ H_i
+        )) * (1.0 / T)
+
+        term1 = (local_vec.T @ local_vec) * diag_HTH_over_T
+
+        # 3. Sum them up
+        W_i_full = term1 + term2
+
+        # 4. Place the block into the large matrix
+        W[i*(K+1):(i+1)*(K+1), i*(K+1):(i+1)*(K+1)] = W_i_full
+
+    avar = clean(
+        np.linalg.inv(
+            S_hat - L_hat.T / N
+        ) 
+        @ W 
+        @ np.linalg.inv(
+            S_hat - L_hat / N
+        )
+    )
+    return avar
+# =============================================================================================
 
 def full_homogeneity_test(
     eta: np.array,
@@ -582,3 +728,50 @@ def clean(x: np.array) -> np.array:
         a_max = np.percentile(x, 95),
     )
 
+def simulate_dgp(N, K, R, T,
+                heterogeneity_strength=0.0,
+                sigma_u=0.2,
+                sigma_eps=0.5,
+                sigma_g=1.0,
+                seed=None):
+    """
+    Simulates data consistent with your estimator structure.
+    
+    N: industries
+    K: observed factors (Mkt, SMB, ...)
+    R: latent factors in your iterative_convergence
+    T: number of periods
+    
+    heterogeneity_strength = 0  → null hypothesis
+    heterogeneity_strength > 0 → alternative
+    """
+    rng = np.random.default_rng(seed)
+    
+    G = rng.normal(0, sigma_g, size=(T, R))
+    
+    alpha = np.zeros(N)                
+    lambda_true = np.zeros((N, K))
+    
+    for i in range(N):
+        lambda_true[i] = heterogeneity_strength * rng.normal(0, 1, size=K)
+    
+    beta_star_true = rng.normal(0, 1, size=(N, R))
+    
+    beta_true = np.zeros((N, K, T))
+    for i in range(N):
+        beta_i0 = rng.normal(0, 1, size=K)
+        for t in range(T):
+            beta_true[i,:,t] = beta_i0 + sigma_u * rng.normal(0,1,size=K)
+    
+    realized_cov = beta_true + sigma_u * rng.normal(0,1,size=(N,K,T))
+    
+    residuals = sigma_u * rng.normal(0,1,size=(N,K,T))
+    
+    r = np.zeros((N,T))
+    for i in range(N):
+        for t in range(T):
+            mean_part = alpha[i] + lambda_true[i] @ beta_true[i,:,t]
+            g_part    = beta_star_true[i] @ G[t]
+            r[i,t] = mean_part + g_part + sigma_eps * rng.normal()
+    
+    return beta_true, r, realized_cov, residuals, G, beta_star_true, lambda_true

@@ -1,0 +1,14 @@
+\section{Conclusion}\label{section-conclusion}
+
+Taken at face value, this replication study seems to agree with the original paper and overwhelmingly rejects the null hypotheses of zero intercept and homogenous slopes in CAPM, Fama-French 3 factors and Fama-French 5 factors asset pricing models. 
+
+This replication builds upon the original study with an extended dataset, and a more stable way of solving a constrained optimization problem for the estimation of factor risk premia. 
+
+The replication implementation of estimating time-varying factor loads and factor risk premia are verified by matching against the author's intermediate datasets (whenever available) and MC simulation. 
+
+The biggest limitation of this project is the failure to replicate the estimation of asymptotic variance and the computation of the test statistic. The hypothesized reason for the failure to find asymptotic normality of the test statistic is the presence of numerical instability when calculating matrix inverses. Attemps to address this, such as by adding a small epsilon or using Python's pseudo-inverse function causes drastically different results.
+
+Another major limitation of this study is the naive treatment of time-series and the use of jackknife resampling. The current implementation is based on my understanding of Notes 5, but it likely wrongly assumes independence of observation across time steps. I unfortunately did not have time to fully read up on this in time for the submission of this project, but I will be sure to read about it and update it over break.
+
+
+

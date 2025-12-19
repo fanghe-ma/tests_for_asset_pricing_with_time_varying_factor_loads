@@ -5,7 +5,7 @@
 % page setup
 \geometry{left=2.5cm,textwidth=16.5cm,top=1in, bottom=1in} % , textheight=27cm
 \setlength{\parskip}{6pt} % space between paragraphs
-% \doublespacing
+\doublespacing
         
 % references
 \hypersetup{citecolor=blue,linkcolor=blue,urlcolor=blue} % [s1]
@@ -16,5 +16,15 @@
 \input{Sections/3-models}
 \input{Sections/4-results}
 \input{Sections/5-conclusion}
+
+\newpage
+\appendix
+\includepdf[pages=-, pagecommand={}, scale=0.9]{appendix/01_setup.pdf}
+\includepdf[pages=-, pagecommand={}, scale=0.9]{appendix/02_factor_loading.pdf}
+\includepdf[pages=-, pagecommand={}, scale=0.9]{appendix/03_factor_risk_premia.pdf}
+\includepdf[pages=-, pagecommand={}, scale=0.9]{appendix/04_avar_test_statistic.pdf}
+\includepdf[pages=-, pagecommand={}, scale=0.9]{appendix/05_monte_carlo.pdf}
+\includepdf[pages=-, pagecommand={}, scale=0.9]{appendix/06_empirical_homogeneity_test.pdf}
+\includepdf[pages=-, pagecommand={}, scale=0.9]{appendix/07_bootstrap.pdf}
 \end{document}
 
