@@ -10,6 +10,9 @@ When applied to US-industry portfolios over the time period from 1963 to 2024, t
 
 In this project, the same approach was taken with an extended dataset covering US-industry portfolios from 1963 to 2025. Overwhelming evidence was found against the null hypotheses of zero intercept and homogenous risk premia when tested separately and jointly. However, under MC simulations, this project was unable to verify the asymptotic level of the proposed tests, and the proposed tests seemed to reject the null too often. This project also makes an attempt at jackknife resampling to estimate standard error. This led to small improvements in Type I error rate but was nonetheless unsuccessful. The failure of jackknife resampling was likely because of the naive treatment of time-series panel data.
 
+The code and data used to generate this replication can be found at the following
+\href{https://github.com/fanghe-ma/tests_for_asset_pricing_with_time_varying_factor_loads/tree/main}{GitHub Repository}.
+
 \subsection{Original methodology}
 
 Using US-industry portfolio returns and Fama-French factor returns, Galvao et al's first stage involves estimating factor-loads. The factor loads are generated as the fitted values in a AR(1) regression of a time-series of realized covariances between asset and factor returns. 

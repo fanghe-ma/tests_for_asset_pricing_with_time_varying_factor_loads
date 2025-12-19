@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1766104502 "/Users/fanghema/Desktop/aaSTAT_5200/STAT_5200_final_project/report/report.tex" "report.pdf" "report" 1766104504 0
+["pdflatex"] 1766104831 "/Users/fanghema/Desktop/aaSTAT_5200/STAT_5200_final_project/report/report.tex" "report.pdf" "report" 1766104833 0
   "/Users/fanghema/Desktop/aaSTAT_5200/STAT_5200_final_project/report/report.tex" 1766104206 1064 b634f384097b096048334d600ff87cd7 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -119,7 +119,7 @@
   "/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1693360566 4623355 b8cad38412faebe1ce5b780a45db67bd ""
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1693360557 7883453 7512e057c6808cc4ab57b2931450f837 ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
-  "Sections/1-introduction.tex" 1766104500 3098 1eb28ca86385a7581a1e87c9d523936e ""
+  "Sections/1-introduction.tex" 1766104831 3302 495fbf9742057de6ae5cb3abf737851a ""
   "Sections/2-data.tex" 1766072466 1002 85ef3807c10f4bf8eef71146ac3bbac3 ""
   "Sections/3-models.tex" 1766078898 11880 2b31a0e73e59c51ffd3e4cc161e41342 ""
   "Sections/4-results.tex" 1766103171 11875 a2817ff0f7ba0362f49b65abd18d295b ""
@@ -131,9 +131,9 @@
   "appendix/05_monte_carlo.pdf" 1766104044 1062372 178501e212abd193bf3cc5d2f37b46e0 ""
   "appendix/06_empirical_homogeneity_test.pdf" 1766104059 59412 4aee9dce4ec7453fa3ca3dc114680905 ""
   "appendix/07_bootstrap.pdf" 1766104073 160803 d867338a13167f2ef7405a9ca030d26e ""
-  "preamble.tex" 1766104190 3659 1129efb4eaf82837c140f2f99f621c70 ""
-  "report.aux" 1766104504 4835 f16ef9fb9b4ee13bd6b55896961ece4a "pdflatex"
-  "report.out" 1766104504 3040 c9810f3d7a6eedfbdcb73ee517c472bc "pdflatex"
+  "preamble.tex" 1766104703 3659 1129efb4eaf82837c140f2f99f621c70 ""
+  "report.aux" 1766104833 4835 f16ef9fb9b4ee13bd6b55896961ece4a "pdflatex"
+  "report.out" 1766104833 3040 c9810f3d7a6eedfbdcb73ee517c472bc "pdflatex"
   "report.tex" 1766104206 1064 b634f384097b096048334d600ff87cd7 ""
   (generated)
   "report.aux"
